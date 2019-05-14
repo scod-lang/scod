@@ -1,0 +1,38 @@
+# 
+#   Copyright (C) 2019 SCOD Organization <https://scod-lang.org>
+#   All rights reserved.
+# 
+#   Developed by: Philipp Paulweber
+#                 Emmanuel Pescosta
+#                 <https://github.com/scod-lang/scod>
+# 
+#   This file is part of scod.
+# 
+#   scod is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+# 
+#   scod is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#   GNU General Public License for more details.
+# 
+#   You should have received a copy of the GNU General Public License
+#   along with scod. If not, see <http://www.gnu.org/licenses/>.
+# 
+
+#+options: toc:nil
+
+
+* SCOD Project
+
+This is the main repository of the SCOD project.
+
+
+** Copyright and License
+
+The copyright holder of 
+=scod= is the [[https://scod-lang.org][SCOD Organization]] ([[https://github.com/scod-lang][@scod-lang]]) 
+and the used license of 
+=scod= is the [[https://www.gnu.org/licenses/gpl-3.0.html][GNU GPLv3]].

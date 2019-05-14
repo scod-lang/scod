@@ -1,0 +1,77 @@
+#
+#   Copyright (C) 2019 SCOD Organization <https://scod-lang.org>
+#   All rights reserved.
+#
+#   Developed by: Philipp Paulweber
+#                 Emmanuel Pescosta
+#                 <https://github.com/scod-lang/scod>
+#
+#   This file is part of scod.
+#
+#   scod is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   scod is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with scod. If not, see <http://www.gnu.org/licenses/>.
+#
+
+#
+#
+# Applications
+#
+
+[submodule "app/scodc"]
+	path = app/scodc
+	url = git@github.com:scod-lang/scodc.git
+
+#
+#
+# Libraries (External)
+#
+
+[submodule "lib/stdhl"]
+	path = lib/stdhl
+	url = https://github.com/casm-lang/libstdhl.git
+
+[submodule "lib/pass"]
+	path = lib/pass
+	url = https://github.com/casm-lang/libpass.git
+
+[submodule "lib/gtest"]
+	path = lib/gtest
+	url = https://github.com/casm-lang/libgtest.git
+
+[submodule "lib/hayai"]
+	path = lib/hayai
+	url = https://github.com/casm-lang/libhayai.git
+
+#
+#
+# Libraries (SCOD)
+#
+
+[submodule "lib/scod"]
+	path = lib/scod
+	url = git@github.com:scod-lang/libscod.git
+
+#
+#
+# Extension (Plug-ins)
+#
+
+#
+#
+# Packages
+#
+
+#
+#
+# Various (Containers, Logo, Publications, Website etc.)
+#
