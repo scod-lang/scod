@@ -73,5 +73,14 @@
 
 #
 #
+# System Specifications (SCOD)
+#
+
+[submodule "sys"]
+	path = sys
+	url = git@github.com:scod-lang/specs.git
+
+#
+#
 # Various (Containers, Logo, Publications, Website etc.)
 #
