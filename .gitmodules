@@ -85,6 +85,10 @@
 # Various (Containers, Logo, Publications, Website etc.)
 #
 
+[submodule "var/logo"]
+	path = var/logo
+	url = git@github.com:scod-lang/scod-lang.logo.git
+
 [submodule "var/web"]
 	path = var/web
 	url = git@github.com:scod-lang/scod-lang.github.io
