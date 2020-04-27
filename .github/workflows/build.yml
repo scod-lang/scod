@@ -1,0 +1,161 @@
+#
+#   Copyright (C) 2019-2020 SCOD Organization <https://scod-lang.org>
+#   All rights reserved.
+#
+#   Developed by: Philipp Paulweber
+#                 Emmanuel Pescosta
+#                 <https://github.com/scod-lang/scod>
+#
+#   This file is part of scod.
+#
+#   scod is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   scod is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with scod. If not, see <http://www.gnu.org/licenses/>.
+#
+
+# https://help.github.com/en/articles/virtual-environments-for-github-actions#supported-virtual-environments
+
+name: build
+
+on: [push]
+
+jobs:
+  linux-x86_64:
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        tool:
+        - build: debug
+          chain: clang
+        - build: coverage
+          chain: gcc
+    env:
+      B: ${{ matrix.tool.build }}
+      C: ${{ matrix.tool.chain }}
+      G: ninja
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Setup
+      run: |
+        make info
+        sudo apt-get update
+        sudo apt-get install -y ninja-build
+        sudo apt-get install -y libz3-dev
+        make ci-tools
+    - name: Fetching
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      run: |
+        make ci-fetch
+    - name: Dependencies
+      run: |
+        make ci-deps
+    - name: Building
+      run: |
+        make ci-build
+    - name: Tests
+      run: |
+        make ci-test
+    - name: Benchmark
+      run: |
+        make ci-benchmark
+    - name: Coverage
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      if: matrix.tool.build == 'coverage' && matrix.tool.chain == 'gcc'
+      run: |
+        wget https://codecov.io/bash
+        chmod 755 bash
+        ./bash
+
+  darwin-x86_64:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        tool:
+        - build: debug
+          chain: gcc
+    env:
+      B: ${{ matrix.tool.build }}
+      C: ${{ matrix.tool.chain }}
+      G: ninja
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Setup
+      run: |
+        make info
+        brew install ninja
+        brew install gcc@9
+        ln -s /usr/local/bin/gcc-9 /usr/local/bin/gcc
+        ln -s /usr/local/bin/g++-9 /usr/local/bin/g++
+        brew install z3
+        make ci-tools
+    - name: Fetching
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      run: |
+        make ci-fetch
+    - name: Dependencies
+      run: |
+        make ci-deps
+    - name: Building
+      run: |
+        make ci-build
+    - name: Tests
+      run: |
+        make ci-test
+    - name: Benchmark
+      run: |
+        make ci-benchmark
+
+  windows-x86_64:
+    runs-on: windows-2019
+    strategy:
+      matrix:
+        tool:
+        - build: debug
+          chain: gcc
+    env:
+      B: ${{ matrix.tool.build }}
+      C: ${{ matrix.tool.chain }}
+      G: ninja
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Setup
+      run: |
+        make info
+        choco install ninja
+        Invoke-WebRequest https://github.com/Z3Prover/z3/releases/download/z3-4.8.6/z3-4.8.6-x64-win.zip -O C:\z3-4.8.6-x64-win.zip
+        Expand-Archive    C:\z3-4.8.6-x64-win.zip     -DestinationPath C:\
+        Copy-Item -Path   C:\z3-4.8.6-x64-win\bin     -Destination     C:\ProgramData\chocolatey -Recurse -Force
+        Copy-Item -Path   C:\z3-4.8.6-x64-win\include -Destination     C:\ProgramData\chocolatey -Recurse -Force
+        make ci-tools
+    - name: Fetching
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      run: |
+        make ci-fetch
+    - name: Dependencies
+      run: |
+        make ci-deps
+    - name: Building
+      run: |
+        make ci-build
+    - name: Tests
+      run: |
+        make ci-test
+    - name: Benchmark
+      run: |
+        make ci-benchmark
