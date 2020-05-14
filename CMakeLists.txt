@@ -108,7 +108,7 @@ install(
 
 install(
   DIRECTORY
-    app/scod/obj/install/
+    app/scodc/obj/install/
   DESTINATION
     "."
     )
